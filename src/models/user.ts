@@ -19,8 +19,8 @@ const MessageSchema : Schema<Message> = new mongoose.Schema({
 
 export interface User extends Document {
   username: string;
-  email: String;
-  password: String;
+  email: string;
+  password: string;
   isVerified: boolean;
   verificationCode: string;
   verificationCodeExpiry: Date;
