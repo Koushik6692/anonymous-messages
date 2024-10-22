@@ -15,6 +15,9 @@ export async function sendVerificationEmail(email : string,
       react: VerificationEmail({username,otp :verifyCode}),
     });
     if(error){
+      console.log(email,username,verifyCode)
+      console.log("something went wrong while sending verification code!!",error);
+      
       return {success:false , message:"something went wrong while sending verification code!!"}
     }
 

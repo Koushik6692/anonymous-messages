@@ -2,15 +2,19 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/user";
 import bcrypt from "bcryptjs"
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+import { log } from "console";
 
 export async function POST(request: Request) {
   await dbConnect()
   try {
     const {username,email,password}=await request.json()
+    // console.log(username,email,password)//////////
+
      const existingUserVerifiedByUserName= await UserModel.findOne({
       username,
       isVerified: true
     })
+    console.log(existingUserVerifiedByUserName)
 
     if(existingUserVerifiedByUserName){
       return  Response.json(
@@ -25,6 +29,8 @@ export async function POST(request: Request) {
 
     if(existingUserByEmail){
       if(existingUserByEmail.isVerified){
+        // console.log("User already exists with this email nd verified");
+        
         return Response.json({success: false, message: "User already exists with this email"},{status:400})
       }else{
         const hashedPassword = await bcrypt.hash(password,10)
@@ -56,10 +62,11 @@ export async function POST(request: Request) {
     const emailResponse = await sendVerificationEmail(email,username,verifyCode);
 
     if(!emailResponse.success){
+      // console.log("verification code cant send")
       return Response.json(
         {
           success:false,
-          message: emailResponse.message,
+          message:  "verification code cant send",
         },
         { status:500 }
       )
