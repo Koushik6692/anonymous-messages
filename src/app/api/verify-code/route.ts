@@ -10,7 +10,7 @@ export async function POST(request:Request) {
     console.log(decodedUsername)
     const user = await UserModel.findOne({username :decodedUsername});
     if(!user){
-      console.log("User not found");
+      // console.log("User not found");
       
       return Response.json({
         success:false,
@@ -28,14 +28,14 @@ export async function POST(request:Request) {
       },{status:200})
     }
     else if(!isCodeNotExpierd){
-      console.log("Verification code expired use new code");
+      // console.log("Verification code expired use new code");
       
       return Response.json({
         success:false,
         message:"Verification code expired use new code"
       },{status:400})
     }else{
-      console.log("Invalid  verification code");
+      // console.log("Invalid  verification code");
       
       return Response.json({
         success:false,
