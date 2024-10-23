@@ -58,6 +58,9 @@ const UserSchema : Schema<User> = new mongoose.Schema({
   verificationCodeExpiry:{
     type:Date,
     required: [true,"Verification code expiry is required"]
+  },isAcceptingMessages: {
+    type: Boolean,
+    default: true,
   },
   messages:[MessageSchema]
 })
