@@ -1,30 +1,35 @@
-import {resend} from "@/lib/resend"
-import VerificationEmail from "../../emails/VerificationEmail"
+import nodemailer from "nodemailer"
 import { ApiResponse } from "@/types/ApiResponse"
-import { ApiError } from "next/dist/server/api-utils";
 
 
 export async function sendVerificationEmail(email : string, 
   username: string, 
-  verifyCode: string): Promise<ApiResponse>{
-  try {
-    const { data, error } = await resend.emails.send({
-      from: 'Acme <onboarding@resend.dev>',
-      to: email,
-      subject: 'Anonymus messages || VerificationCode',
-      react: VerificationEmail({username,otp :verifyCode}),
+  verifyCode: string): Promise <ApiResponse>{
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.NODEMAILER_EMAIL,
+        pass: process.env.NODEMAILER_PW,
+      },
     });
-    if(error){
-      console.log(email,username,verifyCode)
-      console.log("something went wrong while sending verification code!!",error);
+  
+    var mailOptions = {
+      from: process.env.NODEMAILER_EMAIL,
+      to: email,
+      subject: "VERIFICATION-CODE",
+      text: `Hello ${username}, your verification code is: ${verifyCode}` ,
+    };
+  
+    try {
+      const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.response);
       
-      return {success:false , message:"something went wrong while sending verification code!!"}
+      
+      return {success:true , message: "Verification code sent successfully!!"}
+    } catch (error) {
+      console.log("Error while sending verificationcode",error);
+      return {success:false , message: "Verification code can't send"}
+      
     }
-
-    return {success:true , message: "Verification code sent successfully!!"}
-    
-  } catch (emailError) {
-    console.error("Verification code cannot be sent!",emailError)
-    return {message:"Verification code cannot be sent!", success:false}
-  }
+      
 }
