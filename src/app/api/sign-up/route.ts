@@ -54,6 +54,7 @@ export async function POST(request: Request) {
         isAcceptingMessages: true,
         messages: []
       })
+      console.log(newUser)
 
       await newUser.save();
     }
