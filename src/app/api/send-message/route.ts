@@ -27,7 +27,7 @@ export async function POST(request:Request) {
     user.messages.push(newMessage as Message)
     await user.save()
     return Response.json({
-      message:"Message sent successfullyt",
+      message:"Message sent successfully!",
       success: true
     },{status:200}
     )

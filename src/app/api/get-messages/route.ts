@@ -29,14 +29,14 @@ export async function GET(request:Request) {
       {$sort:{'messages.createdAt':-1}},
       {$group:{_id:'$_id', messages: {$push: '$messages'}}}
     ]).exec();
-    console.log(fetchedUser);
+    // console.log(fetchedUser);
     
 
     if(!fetchedUser || fetchedUser.length ===0){
       return Response.json({
-        message:"User not found!",
+        message:"no messages  found!",
         success: false
-      },{status: 400}
+      },{status: 200}
       )
     }
     return Response.json({
