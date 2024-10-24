@@ -16,7 +16,7 @@ import { set } from "mongoose"
 import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 
-export default function page() {
+export default function SignUpPage() {
   const[username , setUsername] = useState('');
   const[usernameMessage,setUsernameMessge] = useState('');
   const[isCheckingUsername, setIsCheckingUsername] = useState(false)

@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 // import  signIn  from "next-auth/react"
 
-function signInPage() {
+function SignInPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
 const form = useForm<z.infer<typeof signInSchema>>({
@@ -114,4 +114,4 @@ const onSubmit = async (data:z.infer<typeof signInSchema>)=>{
   )
 }
 
-export default signInPage
+export default SignInPage
