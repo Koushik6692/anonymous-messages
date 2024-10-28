@@ -21,6 +21,7 @@
     "@radix-ui/react-switch": "^1.1.1",
     "@radix-ui/react-toast": "^1.2.2",
     "@react-email/components": "^0.0.25",
+    "@vercel/speed-insights": "^1.0.14",
     "ai": "^3.4.16",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
